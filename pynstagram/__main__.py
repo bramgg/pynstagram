@@ -12,6 +12,7 @@ def main(args=None):
     parser.add_option('-p', dest='password', help='password')
     parser.add_option('-f', dest='file', help='file path')
     parser.add_option('-t', dest='caption', help='caption text')
+    parser.add_option('-x', dest='proxy', help='https proxy url')
 
     (options, args) = parser.parse_args(args)
     if not options.username:
@@ -23,7 +24,7 @@ def main(args=None):
     if not options.file:
         parser.error('File path is required')
 
-    with pynstagram.client(options.username, password) as client:
+    with pynstagram.client(options.username, password, proxy=options.proxy) as client:
         text = options.caption or ''
         client.upload(options.file, text)
 

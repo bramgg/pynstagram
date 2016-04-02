@@ -34,11 +34,12 @@ def generate_signature(data):
 class PynstagramSession(object):
     ENDPOINT_URL = 'https://i.instagram.com/api/v1'
 
-    def __init__(self):
+    def __init__(self, proxy=None):
         self.guid = str(uuid.uuid1())
         self.device_id = 'android-%s' % self.guid
         self.session = requests.Session()
         self.session.headers.update({'User-Agent': generate_user_agent()})
+        self.session.proxies = {'https': proxy}
 
     def login(self, username, password):
         data = json.dumps({
